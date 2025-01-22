@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Bar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+         font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #ede7ee, #d0dde2, #f0ecef, #f1f1e8);
+        background-size: 300% 300%;
+        animation: gradientShift 15s ease infinite;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        background-image: url('https://cdn.pixabay.com/photo/2023/10/30/21/14/ai-generated-8353869_640.jpg');
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .A{
+            display: flex;
+            padding: 30px;
+        }
+
+        /* Container Styling */
+        #chartContainer,#chartContainer1 {
+            width: 50%;
+            
+            max-width: 1200px;
+            margin: 20px ;
+            padding: 20px;
+            background-color: #f8f0f0;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        #chartContainer,#chartContainer1:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Filters Section Styling */
+        .filters {
+            background: linear-gradient(135deg, #cb66dd, #d0dde2, #66d3dd, #ecec75);
+        
+        /* animation: gradientShift 15s ease infinite; */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label, select, input {
+            font-size: 16px;
+            margin-bottom: 12px;
+            margin-right: 20px;
+            padding: 10px;
+        }
+
+        select, input[type="date"] {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            width: 180px;
+            transition: border 0.3s ease;
+        }
+
+        select:focus, input[type="date"]:focus {
+            border-color: #46e27f;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #06854e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 3D Effect for the Charts */
+        canvas {
+            display: block;
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        canvas:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            select, input[type="date"], button {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            button {
+                margin-top: 10px;
+            }
+            .A{
+                flex-wrap: wrap;
+            }
+        }
+        @media (max-width: 480px) {
+            #chartContainer,#chartContainer1 {
+                width: 100%;
+                align-items: center;
+            }
+            h1 {
+                font-size: 1.4em;
+            }
+            canvas {
+                height: 300px !important;
+            }
+            .A{
+                flex-wrap: wrap;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Data Visualization Dashboard</h1>
+    
+    <div class="filters">
+        <label for="ageGroup">Age Group:</label>
+        <select id="ageGroup">
+            <option value="all">All</option>
+            <option value="15-25">15-25</option>
+            <option value=">25">>25</option>
+        </select>
+
+        <label for="gender">Gender:</label>
+        <select id="gender">
+            <option value="all">All</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate">
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate">
+        
+        <button onclick="updateChart()">Filter</button>
+    </div>
+<div class="A">
+    <div id="chartContainer1">
+        <canvas id="myChart"></canvas>
+    </div>
+    <div id="chartContainer">
+        <canvas id="myLineChart" ></canvas> 
+    </div>
+</div>
+    <script src="visi1.js"></script>
+</body>
+</html>
